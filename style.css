@@ -159,6 +159,22 @@ body {
     flex-basis: 40vw;
 }
 
+.total-expenses-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.total-expenses-percentage {
+    border-radius: 3px;
+    background-color: hsl(0, 33%, 77%);
+    font-size: 12px;
+    padding-block: 3px;
+    padding-inline: 4px;
+}
+
+
+
 .details-headers {
     font-weight: 400;
     padding-block: 1rem;

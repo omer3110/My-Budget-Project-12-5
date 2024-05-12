@@ -28,8 +28,32 @@ elemValueOfAction.addEventListener('keypress', function (event) { //When clickin
 const elemSubmitActionButton = document.querySelector('.submit-action-button');
 // Content on page elems
 const elemCurrentBudget = document.querySelector('.current-budget h1');
+const elemTotalExpensesPercentage = document.querySelector('.total-expenses-percentage')
 
 reloadPage();
+
+function totalExpensesPercentageCalc() {
+    if (currentIncome <= 0 || currentExpenses <= 0) {
+        return "---"
+    }
+    else {
+    let percentage = (currentExpenses / currentIncome) * 100
+    return `${percentage.toFixed(2)}%`}
+  }
+
+function percentageCalculator(num) {
+    if (currentIncome <= 0 || currentExpenses <= 0) {
+        return "---"
+    }
+    else {
+    let percentage = (num / currentIncome) * 100
+    return `${percentage.toFixed(2)}%`}
+}
+
+function printExpensesPercentages() {
+
+}
+  
 
 function reloadPage() {
     printTodayDate();
@@ -73,7 +97,7 @@ function removeDivAction(elem, type) {
     currentBudget = (currentBudget + localStorage.getItem("income")) - localStorage.getItem("expenses");
     elemCurrentBudget.innerHTML = formatNumberWithCommas(currentBudget);
     localStorage.setItem("budget", currentBudget);
-
+    elemTotalExpensesPercentage.innerHTML = totalExpensesPercentageCalc()
 }
 
 
@@ -97,6 +121,8 @@ function updateLocalStorageAfterExpenseRemove(value) {
     // Reset IDs of remaining divs
     document.querySelectorAll('.expenses-details .last-action-wrapper').forEach((div, index) => {
         div.id = index;
+        // let percentageDiv = div.lastChild;
+        // percentageDiv = percentageDiv.children[1]; // Change @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     });
     expensesActionsCounter--;
 }
@@ -110,6 +136,7 @@ function printCurrentLocalDetailsOnReload() {
     printCurrentExpensesOnReload();  // Running on the current totalExpenses array and his objects key values and print them to the page, and added all the values to the currentExpenses
     currentBudget = (currentBudget + localStorage.getItem("income")) - localStorage.getItem("expenses");
     elemCurrentBudget.innerHTML = formatNumberWithCommas(currentBudget);
+    elemTotalExpensesPercentage.innerHTML = totalExpensesPercentageCalc();
     localStorage.setItem("budget", currentBudget);
 }
 
@@ -137,11 +164,12 @@ function printCurrentExpensesOnReload() {
     totalExspenses.forEach(obj => {
         Object.entries(obj).forEach(([description, value]) => {
             currentExpenses += value;
+            let currentItemPercentage = percentageCalculator(value)
             const newDiv = document.createElement("div");
             elemExpensesDetails.appendChild(newDiv);
             newDiv.classList.add("last-action-wrapper");
             newDiv.id = expensesActionsCounter;
-            newDiv.innerHTML = `<p>${description}</p><div class="button-and-value-wrapper"><p>-${formatNumberWithCommas(value)}</p><button onclick="removeDivAction(this.parentNode.parentNode,'expense')" class ="expenses-remove-button">${removeActionButton}</button></div>`;
+            newDiv.innerHTML = `<p>${description}</p><div class="button-and-value-wrapper"><p>-${formatNumberWithCommas(value)}</p><p class="total-expenses-percentage">${currentItemPercentage}</p><button onclick="removeDivAction(this.parentNode.parentNode,'expense')" class ="expenses-remove-button">${removeActionButton}</button></div>`;
             expensesActionsCounter++;
         });
         elemTotalExpenses.innerHTML = `-${formatNumberWithCommas(currentExpenses)}`;
@@ -157,6 +185,7 @@ function submitActionChanges() {
     printCurrentIncomeAndExpenses();
     printLastIncomeDetail();
     printLastExpenseDetail();
+    elemTotalExpensesPercentage.innerHTML = totalExpensesPercentageCalc();
     resetInputs();
 }
 
