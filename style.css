@@ -1,0 +1,201 @@
+/* Global */
+
+:root {
+    --input-border-radius: 4px;
+    --input-border: solid 1px rgb(216, 203, 203);
+    --input-padding: 8px;
+    --income-color: #32A5A0;
+    --expenses-color: hsl(358, 86%, 61%);
+    --income-border-color: solid 1px var(--income-color);
+    --expenses-border-color: solid 1px var(--expenses-color);
+
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: lighter;
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 248);
+    height: 100vh;
+}
+
+/* Display budget container / first div  */
+
+.display-budget-container {
+    display: flex;
+    justify-content: center;
+    background-image: url("images/desert-image.jpg");
+    background-color: aliceblue;
+    background-size: cover;
+    padding-block: 2rem;
+    color: rgb(255, 255, 248);
+
+}
+
+.budget-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+}
+
+#current-time-heading {
+    text-align: center;
+}
+
+.current-budget {
+    display: flex;
+    justify-content: center;
+}
+
+.current-budget h1 {
+    font-weight: 400;
+}
+
+.income-content-wrapper,
+.expenses-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.income-content-wrapper {
+    background-color: var(--income-color);
+    padding: 8px;
+
+}
+
+.expenses-content-wrapper {
+    background-color: var(--expenses-color);
+    padding: 8px;
+
+}
+
+.action {
+    color: black;
+}
+
+/* Make action wrapper / second div  */
+
+.make-action-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding-block: 12px;
+    background-color: rgb(226, 226, 226);
+    border: solid 0.5px rgb(207, 201, 201);
+}
+
+.type-of-action-input,
+.description-of-action-input,
+.value-of-action-input {
+    border-radius: var(--input-border-radius);
+    border: var(--input-border);
+    padding: var(--input-padding);
+}
+
+.type-of-action-input {
+    width: 50px;
+}
+
+.description-of-action-input {
+    width: 300px;
+}
+
+.value-of-action-input {
+    width: 90px;
+}
+
+.submit-action-button-wrapper {
+    display: flex;
+}
+
+.submit-action-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.submit-action-button svg {
+    /* color: var(--income-color); */
+    width: 28px;
+    height: 28px;
+}
+
+.submit-action-button svg:hover {
+    height: 26px;
+    opacity: 0.8;
+}
+
+.stam {
+    background-color: aquamarine;
+}
+
+/* Income and Expenses detail wrapper / third div  */
+
+.income-and-expenses-details-wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+
+.income-details {
+    display: flex;
+    flex-direction: column;
+    color: var(--income-color);
+    flex-basis: 40vw;
+}
+
+.expenses-details {
+    display: flex;
+    flex-direction: column;
+    color: var(--expenses-color);
+    flex-basis: 40vw;
+}
+
+.details-headers {
+    font-weight: 400;
+    padding-block: 1rem;
+}
+
+.last-action-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 8px;
+    padding-inline: 12px;
+    border-top: solid 1px rgb(206, 200, 200);
+}
+
+.button-and-value-wrapper {
+    display: flex;
+    gap: 4px;
+}
+
+.button-and-value-wrapper button {
+    display: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: display 2s;
+}
+
+.expenses-remove-button {
+    color: var(--expenses-color);
+}
+
+.income-remove-button {
+    color: var(--income-color);
+}
+
+.last-action-wrapper:hover .expenses-remove-button,
+.last-action-wrapper:hover .income-remove-button {
+    display: inline;
+    opacity: 1;
+}
