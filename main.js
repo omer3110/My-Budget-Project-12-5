@@ -1,10 +1,3 @@
-/* 1 .make the Income and the Expense in the same line
-2. make the page responsive to mobile
-3. add line to the end of the income and expenses lists
-4. fix the budget + - 
-5. make last finish of the colors and font weights
-  */
-
 
 let currentBudget = Number(localStorage.getItem("budget")) || 0;//load from the local storage budget, income and expenses 
 let currentIncome = Number(localStorage.getItem("income")) || 0;//and if not exist load the variable to 0.
@@ -324,4 +317,5 @@ function valueColorChange() {
         elemValueOfAction.style.border = "var(--expenses-border-color)";
     }
 }
+
 
