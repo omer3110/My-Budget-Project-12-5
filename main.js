@@ -1,7 +1,7 @@
 /* 1 .make the Income and the Expense in the same line
 2. make the page responsive to mobile
 3. add line to the end of the income and expenses lists
-4. fix the budget + -
+4. fix the budget + - 
 5. make last finish of the colors and font weights
   */
 
@@ -18,11 +18,7 @@ let removeActionButton = `<svg xmlns="http://www.w3.org/2000/svg" width="16" hei
 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
 </svg>`
-//
 
-
-const elemTotalIncome = document.querySelector('.total-income');
-const elemTotalExpenses = document.querySelector('.total-expenses');
 // Inputs and buttons elems 
 const elemActionSelector = document.querySelector('.type-of-action-input');
 const elemActionDescriptionInput = document.querySelector('.description-of-action-input');
@@ -37,6 +33,8 @@ const elemSubmitActionButton = document.querySelector('.submit-action-button');
 // Content on page elems
 const elemCurrentBudget = document.querySelector('.current-budget h1');
 const elemTotalExpensesPercentage = document.querySelector('.total-expenses-percentage')
+const elemTotalIncome = document.querySelector('.total-income');
+const elemTotalExpenses = document.querySelector('.total-expenses');
 
 reloadPage();
 
@@ -46,7 +44,7 @@ function totalExpensesPercentageCalc() {
     }
     else {
     let percentage = (currentExpenses / currentIncome) * 100
-    return `${percentage.toFixed(2)}%`}
+    return `${Math.round(percentage)}%`}
   }
 
 function percentageCalculator(num) {
@@ -55,13 +53,12 @@ function percentageCalculator(num) {
     }
     else {
     let percentage = (num / currentIncome) * 100
-    return `${percentage.toFixed(2)}%`}
+    return `${Math.round(percentage)}%`}
 }
 
-function printExpensesPercentages() {
-
+function printBudgetPositiveOrNegative() {
+    return currentBudget <= 0 ? `${formatNumberWithCommas(currentBudget)}` : `+${formatNumberWithCommas(currentBudget)}`
 }
-  
 
 function reloadPage() {
     printTodayDate();
@@ -78,7 +75,7 @@ function printTodayDate() {
     let todayYear = todayDate.getFullYear();
     let monthIndex = todayDate.getMonth();
     let todayMonth = monthNames[monthIndex];
-    ElemCurrentTime.innerHTML = `Available Budget in ${todayMonth} ${todayYear}`;
+    ElemCurrentTime.innerHTML = `Available Budget in ${todayMonth} ${todayYear}:`;
 }
 
 function formatNumberWithCommas(number) {
@@ -105,7 +102,7 @@ function removeDivAction(elem, type) {
     }
     currentBudget = 0;
     currentBudget = (currentBudget + localStorage.getItem("income")) - localStorage.getItem("expenses");
-    elemCurrentBudget.innerHTML = `+${formatNumberWithCommas(currentBudget)}`;
+    elemCurrentBudget.innerHTML = printBudgetPositiveOrNegative() ;
     localStorage.setItem("budget", currentBudget);
     elemTotalExpensesPercentage.innerHTML = totalExpensesPercentageCalc()
     setCurrentExpensesPercentage()
@@ -130,7 +127,7 @@ function updateLocalStorageAfterIncomeRemove(value) {
     localStorage.setItem("total-incomes", JSON.stringify(totalIncomes));
     currentIncome -= value;
     localStorage.setItem("income", currentIncome);
-    elemTotalIncome.innerHTML = `+${formatNumberWithCommas(currentIncome)}`;
+    elemTotalIncome.innerHTML = `+ ${formatNumberWithCommas(currentIncome)}`;
     document.querySelectorAll('.income-details .last-action-wrapper').forEach((div, index) => {
         div.id = index;
     });
@@ -142,7 +139,7 @@ function updateLocalStorageAfterExpenseRemove(value) {
     localStorage.setItem("total-expenses", JSON.stringify(totalExspenses));
     currentExpenses -= value;
     localStorage.setItem("expenses", currentExpenses);
-    elemTotalExpenses.innerHTML = `-${formatNumberWithCommas(currentExpenses)}`;
+    elemTotalExpenses.innerHTML = `- ${formatNumberWithCommas(currentExpenses)}`;
     // Reset IDs of remaining divs
     document.querySelectorAll('.expenses-details .last-action-wrapper').forEach((div, index) => {
         div.id = index;
@@ -158,7 +155,7 @@ function printCurrentLocalDetailsOnReload() {
     printCurrentIncomesOnReload();  // Running on the current totalIncomes array and his objects key values and print them to the page, and added all the values to the currentIncome
     printCurrentExpensesOnReload();  // Running on the current totalExpenses array and his objects key values and print them to the page, and added all the values to the currentExpenses
     currentBudget = (currentBudget + localStorage.getItem("income")) - localStorage.getItem("expenses");
-    elemCurrentBudget.innerHTML = `+${formatNumberWithCommas(currentBudget)}`;
+    elemCurrentBudget.innerHTML = printBudgetPositiveOrNegative();
     elemTotalExpensesPercentage.innerHTML = totalExpensesPercentageCalc();
     localStorage.setItem("budget", currentBudget);
 }
@@ -176,7 +173,7 @@ function printCurrentIncomesOnReload() {
             newDiv.innerHTML = `<p>${description}</p><div class="button-and-value-wrapper"><p>+${formatNumberWithCommas(value)}</p><button onclick="removeDivAction(this.parentNode.parentNode,'income')" class ="income-remove-button">${removeActionButton}</button></div>`;
             incomeActionsCounter++;
         });
-        elemTotalIncome.innerHTML = `+${formatNumberWithCommas(currentIncome)}`;
+        elemTotalIncome.innerHTML = `+ ${formatNumberWithCommas(currentIncome)}`;
         localStorage.setItem("income", currentIncome);
     });
 }
@@ -192,10 +189,10 @@ function printCurrentExpensesOnReload() {
             elemExpensesDetails.appendChild(newDiv);
             newDiv.classList.add("last-action-wrapper");
             newDiv.id = expensesActionsCounter;
-            newDiv.innerHTML = `<p>${description}</p><div class="button-and-value-wrapper"><p>-${formatNumberWithCommas(value)}</p><p class="total-expenses-percentage">${currentItemPercentage}</p><button onclick="removeDivAction(this.parentNode.parentNode,'expense')" class ="expenses-remove-button">${removeActionButton}</button></div>`;
+            newDiv.innerHTML = `<p>${description}</p><div class="button-and-value-wrapper"><p>-${formatNumberWithCommas(value)}</p><p class="each-expense-percentage">${currentItemPercentage}</p><button onclick="removeDivAction(this.parentNode.parentNode,'expense')" class ="expenses-remove-button">${removeActionButton}</button></div>`;
             expensesActionsCounter++;
         });
-        elemTotalExpenses.innerHTML = `-${formatNumberWithCommas(currentExpenses)}`;
+        elemTotalExpenses.innerHTML = `- ${formatNumberWithCommas(currentExpenses)}`;
         localStorage.setItem("expenses", currentExpenses);
     });
 }
@@ -215,14 +212,14 @@ function submitActionChanges() {
 
 function printCurrentBudget() {
     elemActionSelector.value == "+" ? currentBudget += elemValueOfAction.valueAsNumber : currentBudget -= elemValueOfAction.valueAsNumber;
-    elemCurrentBudget.innerHTML = `+${formatNumberWithCommas(currentBudget)}`;
+    elemCurrentBudget.innerHTML = printBudgetPositiveOrNegative();
     localStorage.setItem("budget", currentBudget);
 }
 
 function printCurrentIncomeAndExpenses() {
     elemActionSelector.value == "+" ? currentIncome += elemValueOfAction.valueAsNumber : currentExpenses += elemValueOfAction.valueAsNumber;
-    elemTotalIncome.innerHTML = `+${formatNumberWithCommas(currentIncome)}`;
-    elemTotalExpenses.innerHTML = `-${formatNumberWithCommas(currentExpenses)}`;
+    elemTotalIncome.innerHTML = `+ ${formatNumberWithCommas(currentIncome)}`;
+    elemTotalExpenses.innerHTML = `- ${formatNumberWithCommas(currentExpenses)}`;
     localStorage.setItem("income", currentIncome);
     localStorage.setItem("expenses", currentExpenses);
 }
@@ -262,7 +259,7 @@ function printLastExpenseDetail() {
         newDiv.classList.add("last-action-wrapper");
         newDiv.id = expensesActionsCounter;
         expensesActionsCounter++;
-        newDiv.innerHTML = `<p>${elemActionDescriptionInput.value}</p><div class="button-and-value-wrapper"><p>-${formatNumberWithCommas(lastExpense)}</p><p class = "total-expenses-percentage"></p><button onclick="removeDivAction(this.parentNode.parentNode,'expense')" class ="expenses-remove-button">${removeActionButton}</button></div>`;
+        newDiv.innerHTML = `<p>${elemActionDescriptionInput.value}</p><div class="button-and-value-wrapper"><p>-${formatNumberWithCommas(lastExpense)}</p><p class = "each-expense-percentage"></p><button onclick="removeDivAction(this.parentNode.parentNode,'expense')" class ="expenses-remove-button">${removeActionButton}</button></div>`;
     }
 }
 
@@ -284,14 +281,16 @@ function orderValidationInputs() {
 
 
 // Input submit button color changes run whe
-function submitButtonColorChange() { //worked on it
+function submitButtonColorChange() {
     if (elemActionSelector.value == '+') {
         elemSubmitActionButton.style.color = "var(--income-color)";
     } if (elemActionSelector.value == '-') {
         elemSubmitActionButton.style.color = "var(--expenses-color)";
     }
 }
+
 submitButtonColorChange();
+
 // Input border color changes 
 
 function orderColorChange() {

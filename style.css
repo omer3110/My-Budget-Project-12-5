@@ -32,7 +32,7 @@ body {
     background-image: url("images/desert-image.jpg");
     background-color: aliceblue;
     background-size: cover;
-    padding-block: 2rem;
+    padding-block: 1rem;
     color: rgb(255, 255, 248);
 
 }
@@ -41,11 +41,12 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 300px;
+    width: 30vw;
 }
 
 #current-time-heading {
     text-align: center;
+    font-size: 1.3rem;
 }
 
 .current-budget {
@@ -54,6 +55,7 @@ body {
 }
 
 .current-budget h1 {
+    font-size: 3rem;
     font-weight: 400;
 }
 
@@ -158,21 +160,39 @@ body {
     flex-basis: 40vw;
 }
 
-.total-expenses-wrapper {
+.expense-and-value , .income-and-value {
     display: flex;
-    align-items: center;
-    gap: 3px;
+    justify-content: space-between;
+    flex-basis: 85%;
+}
+
+.expenses-content-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    padding-block: 0.7rem;
+}
+
+.income-content-wrapper {
+    padding: 0.7rem;
 }
 
 .total-expenses-percentage {
+    margin-right: 4px;
     border-radius: 3px;
-    background-color: hsl(0, 33%, 77%);
+    background-color: #F36664;
+    font-size: 12px;
+    padding-block: 4px;
+    padding-inline: 8px;
+}
+
+.each-expense-percentage {
+    border-radius: 3px;
+    background-color: #d9b2b7ac;
     font-size: 12px;
     padding-block: 3px;
     padding-inline: 4px;
+
 }
-
-
 
 .details-headers {
     font-weight: 400;
@@ -184,12 +204,13 @@ body {
     justify-content: space-between;
     padding-block: 8px;
     padding-inline: 12px;
+    border-collapse: collapse;
     border-top: solid 1px rgb(206, 200, 200);
 }
 
 .button-and-value-wrapper {
     display: flex;
-    gap: 4px;
+    gap: 1rem;
 }
 
 .button-and-value-wrapper button {
