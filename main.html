@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="resetStyle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -48,17 +47,17 @@
             <!-- <div><input class="type-of-action-input" type="number"></div> -->
             <div>
                 <!-- <label for="optionsDropdown">Choose an option:</label> -->
-                <select class="type-of-action-input" onclick="orderColorChange()">
+                <select class="type-of-action-input" onclick="borderColorChange(this)">
                     <option value="+">+</option>
                     <option value="-">-</option>
                 </select>
             </div>
             <div>
-                <input onclick="descriptionColorChange()" class="description-of-action-input" type="text"
+                <input onclick="borderColorChange(this)" class="description-of-action-input" type="text"
                     placeholder="Add description" maxlength="30">
             </div>
             <div>
-                <input onclick="valueColorChange()" class="value-of-action-input" type="number" placeholder="Value"
+                <input onclick="borderColorChange(this)" class="value-of-action-input" type="number" placeholder="Value"
                     min="1">
             </div>
             <div class="submit-action-button-wrapper">
