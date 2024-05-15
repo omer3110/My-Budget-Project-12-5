@@ -161,6 +161,10 @@ body {
     min-width: 35vw;
 }
 
+.income-details> :not(h3):last-child, .expenses-details> :not(h3):last-child  {
+    border-bottom: var(--input-border);
+}
+
 .expense-and-value,
 .income-and-value {
     display: flex;
@@ -193,7 +197,6 @@ body {
     font-size: 12px;
     padding-block: 3px;
     padding-inline: 4px;
-
 }
 
 .details-headers {
@@ -205,11 +208,10 @@ body {
     display: flex;
     justify-content: space-between;
     gap: 0.5rem;
-    padding-block: 8px;
-    padding-inline: 12px;
+    padding-block: 12px;
+    padding-inline: 8px;
     border-top: solid 1px rgb(206, 200, 200);
 }
-
 
 .button-and-value-wrapper {
     display: flex;
@@ -253,6 +255,15 @@ body {
         font-size: 12px;
     }
 
+    .button-and-value-wrapper {
+        gap: 6px;
+    }
+
+    .each-expense-percentage {
+        font-size: 10px;
+        padding-block: 2px;
+    }
+
     .income-details,
     .expenses-details {
         flex-basis: 45vw;
@@ -272,6 +283,11 @@ body {
 @media screen and (max-width: 700px) {
     .budget-content {
         width: 60vw;
+    }
+
+    .each-expense-percentage {
+        font-size: 12px;
+        padding-block: 3px;
     }
 
     .income-and-expenses-details-wrapper {
@@ -300,6 +316,11 @@ body {
 
     #current-time-heading {
         font-size: 1rem;
+    }
+
+    .each-expense-percentage {
+        font-size: 10px;
+        padding-block: 2px;
     }
 
     .income-and-expenses-details-wrapper {
