@@ -102,17 +102,19 @@ function totalExpensesPercentageCalc() {
         return "---"
     }
     else {
-    let percentage = (currentExpenses / currentIncomes) * 100
-    return `${Math.round(percentage)}%`}
-  }
+        let percentage = (currentExpenses / currentIncomes) * 100
+        return `${Math.round(percentage)}%`
+    }
+}
 
 function percentageCalculator(num) { // this function returns the percentage of each expense relativly to the totalIncomes
     if (currentIncomes <= 0) {
         return "---"
     }
     else {
-    let percentage = (num / currentIncomes) * 100
-    return `${Math.round(percentage)}%`}
+        let percentage = (num / currentIncomes) * 100
+        return `${Math.round(percentage)}%`
+    }
 }
 
 function printBudgetPositiveOrNegative() { // this function detect if the budget is positive or negative and returns it with "+" or "-"
@@ -143,11 +145,11 @@ function removeDivAction(elem, type) { // this function execute every time the u
     }
     currentBudget = 0;
     currentBudget = (currentBudget + localStorage.getItem("income")) - localStorage.getItem("expenses");
-    elemCurrentBudget.innerHTML = printBudgetPositiveOrNegative() ;
+    elemCurrentBudget.innerHTML = printBudgetPositiveOrNegative();
     localStorage.setItem("budget", currentBudget);
     elemTotalExpensesPercentage.innerHTML = totalExpensesPercentageCalc()
     setCurrentExpensesPercentage()
-    
+
 }
 
 function updateLocalStorageAfterIncomeRemove(value) {
@@ -175,7 +177,7 @@ function updateLocalStorageAfterExpenseRemove(value) {
 }
 
 function setCurrentExpensesPercentage() { // this function loop through all the action divs and updates their percentage accorantly to the latest action div remove. 
-    document.querySelectorAll('.expenses-details .last-action-wrapper').forEach((div, index) => { 
+    document.querySelectorAll('.expenses-details .last-action-wrapper').forEach((div, index) => {
         let currentActionDivValue = div.lastChild.children[0].textContent; // catch the amount of money of the current action
         let currentActionDivPercentage = div.lastChild.children[1]; // catch the percentage of the current action div
         currentActionDivValue = currentActionDivValue.replace(/,/g, ''); // this line remove the comma from the number so he can be used
@@ -277,7 +279,7 @@ function borderColorChange(elem) {
     if (elemActionSelector.value == '+') {
         elem.style.border = "var(--income-border-color)";
         elemSubmitActionButton.style.color = "var(--income-color)";
-    } 
+    }
     else if (elemActionSelector.value == '-') {
         elem.style.border = "var(--expenses-border-color)";
         elemSubmitActionButton.style.color = "var(--expenses-color)";

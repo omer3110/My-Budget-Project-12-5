@@ -248,7 +248,7 @@ body {
 
 .income-remove-button:active,
 .expenses-remove-button:active {
-    margin-top: 4px;
+    margin-top: 2px;
     opacity: 0.8;
 }
 
