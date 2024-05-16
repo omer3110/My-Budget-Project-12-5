@@ -161,7 +161,8 @@ body {
     min-width: 35vw;
 }
 
-.income-details> :not(h3):last-child, .expenses-details> :not(h3):last-child  {
+.income-details> :not(h3):last-child,
+.expenses-details> :not(h3):last-child {
     border-bottom: var(--input-border);
 }
 
@@ -183,7 +184,6 @@ body {
 }
 
 .total-expenses-percentage {
-    margin-right: 4px;
     border-radius: 3px;
     background-color: #F36664;
     font-size: 12px;
@@ -205,24 +205,37 @@ body {
 }
 
 .last-action-wrapper {
+    position: relative;
     display: flex;
     justify-content: space-between;
     gap: 0.5rem;
     padding-block: 12px;
     padding-inline: 8px;
+    margin-right: 0;
     border-top: solid 1px rgb(206, 200, 200);
 }
 
 .button-and-value-wrapper {
     display: flex;
     gap: 12px;
+    align-items: center;
+    transition: margin-right 0.5s ease;
 }
 
 .button-and-value-wrapper button {
-    display: none;
+    /* display: none; */
+    opacity: 0;
     border: none;
     background: none;
     cursor: pointer;
+    position: absolute;
+    top: 50%;
+    /* Position the button in the middle vertically */
+    right: 0;
+    /* Position the button to the right */
+    transform: translateY(-50%);
+    /* Adjust for centering */
+    transition: opacity 0.3s ease;
 }
 
 .expenses-remove-button {
@@ -241,7 +254,12 @@ body {
 
 .last-action-wrapper:hover .expenses-remove-button,
 .last-action-wrapper:hover .income-remove-button {
-    display: inline;
+    /* display: inline; */
+    opacity: 1;
+}
+
+.last-action-wrapper:hover .button-and-value-wrapper {
+    margin-right: 2rem;
 }
 
 /* responsiv view */
